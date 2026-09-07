@@ -1,26 +1,19 @@
-EuSWH_projection_IV_2025
-Scripts for “Increasing Central and Northern European Summer Heatwave Intensity Due to Forced Internal Variability Changes”
+Scripts for “Uncovering hidden seasonal predictive skill under sparse observational constraints”
+
 by Goratz Beobide-Arsuaga (goratz.beobide.arsuaga@uni-hamburg.de)
+
 Download data from:
 
-    EOBS => Copernicus Climate Data Store (https://cds.climate.copernicus.eu/).
-    SMILES => Earth System Grid Federation (ESGF) nodes (https://esgf.llnl.gov/nodes.html).
+    ERA5 => Copernicus Climate Data Store (https://cds.climate.copernicus.eu/).
+    Standard hindcast => World Data Centre for Climate, on the following website (https://hdl.handle.net/21.14106/098c6104e3d89943248aa61ff69db972adb3baf6).
+    Hybrid-ML hindcast => World Data Centre for Climate, on the following website (https://hdl.handle.net/21.14106/61a65555786bc8b1ff065214ad9485e20e0fe35f).
 
 Data processing with CDO (scripts in 0_cdo_files).
 
-    For t2max and mrso: individual files are merged, regridded to MPI-GE grid, and the European domain is selected.
-    For global mean temperatures (GMT): individual tas files are merged and the weighted area average is computed.
+    Files are merged over the time dimension and linearly regridded to 1° spatial resolution.
 
-Identifying heatwave days and computing their intensity (the core scripts for identifying heatwaves are located in "core_code"):
+Computing anomalies (1_compute_anomalies).
 
-    We compute two sets of t2max anomalies.
+    We compute anomalies relative to 1985-2014 reference period. For Hybrid-ML and Standard, the climatology is computed using the assimilation output. 
 
-    "anomaly_t2max" for non-detrended data: compute t2max anomalies to deseasonalize data.
-    "anomaly_t2max_detrended" for detrended data: compute detrended t2max anomalies to deseasonalize data and remove the ensemble mean trend.
-
-    Compute heatwave threshold: 90th percentile based on a centered 15-day running window and 1985-2014 reference period.
-    Identify heatwave days: t2max exceeding the threshold for at least 6 consecutive days.
-    Compute cumulative heat.
-    Integrate cumulative heat for summer months (JJA) and European domain.
-
-Scripts for the regression analysis and figures: "2_analysis_paper".
+Scripts for the analysis and figures (2_analysis_and_figures)
